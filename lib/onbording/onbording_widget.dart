@@ -31,6 +31,9 @@ class _OnbordingWidgetState extends State<OnbordingWidget> {
     _model.nameTextController ??= TextEditingController();
     _model.nameFocusNode ??= FocusNode();
 
+    _model.hometownTextController ??= TextEditingController();
+    _model.hometownFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -267,6 +270,91 @@ class _OnbordingWidgetState extends State<OnbordingWidget> {
                               .asValidator(context),
                         ),
                       ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          controller: _model.hometownTextController,
+                          focusNode: _model.hometownFocusNode,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            '_model.hometownTextController',
+                            const Duration(milliseconds: 2000),
+                            () => safeSetState(() {}),
+                          ),
+                          autofocus: false,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                            hintText: 'Hometown',
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                24.0, 26.0, 24.0, 26.0),
+                            suffixIcon: _model
+                                    .hometownTextController!.text.isNotEmpty
+                                ? InkWell(
+                                    onTap: () async {
+                                      _model.hometownTextController?.clear();
+                                      safeSetState(() {});
+                                    },
+                                    child: const Icon(
+                                      Icons.clear,
+                                      size: 24.0,
+                                    ),
+                                  )
+                                : null,
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                          keyboardType: TextInputType.name,
+                          cursorColor: FlutterFlowTheme.of(context).primaryText,
+                          validator: _model.hometownTextControllerValidator
+                              .asValidator(context),
+                        ),
+                      ),
                       FFButtonWidget(
                         onPressed: () async {
                           final datePickedDate = await showDatePicker(
@@ -353,6 +441,7 @@ class _OnbordingWidgetState extends State<OnbordingWidget> {
                   await currentUserReference!.update(createUsersRecordData(
                     displayName: _model.nameTextController.text,
                     birthday: _model.datePicked,
+                    hometown: valueOrDefault(currentUserDocument?.hometown, ''),
                   ));
 
                   context.goNamed('tasks');
