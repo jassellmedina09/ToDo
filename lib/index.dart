@@ -4,3 +4,4 @@ export '/tasks/tasks_widget.dart' show TasksWidget;
 export '/onbording/onbording_widget.dart' show OnbordingWidget;
 export '/completed/completed_widget.dart' show CompletedWidget;
 export '/details/details_widget.dart' show DetailsWidget;
+export '/get_email_page/get_email_page_widget.dart' show GetEmailPageWidget;

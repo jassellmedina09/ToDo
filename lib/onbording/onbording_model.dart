@@ -14,6 +14,14 @@ class OnbordingModel extends FlutterFlowModel<OnbordingWidget> {
   FocusNode? nameFocusNode;
   TextEditingController? nameTextController;
   String? Function(BuildContext, String?)? nameTextControllerValidator;
+  // State field(s) for hometown widget.
+  FocusNode? hometownFocusNode;
+  TextEditingController? hometownTextController;
+  String? Function(BuildContext, String?)? hometownTextControllerValidator;
+  // State field(s) for Email widget.
+  FocusNode? emailFocusNode;
+  TextEditingController? emailTextController;
+  String? Function(BuildContext, String?)? emailTextControllerValidator;
   DateTime? datePicked;
 
   @override
@@ -23,5 +31,11 @@ class OnbordingModel extends FlutterFlowModel<OnbordingWidget> {
   void dispose() {
     nameFocusNode?.dispose();
     nameTextController?.dispose();
+
+    hometownFocusNode?.dispose();
+    hometownTextController?.dispose();
+
+    emailFocusNode?.dispose();
+    emailTextController?.dispose();
   }
 }
